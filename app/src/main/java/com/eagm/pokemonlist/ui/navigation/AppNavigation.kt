@@ -25,6 +25,7 @@ import com.eagm.pokemonlist.ui.viewmodels.PokemonListViewModel
 import com.eagm.pokemonlist.ui.views.PokemonDetailView
 import com.eagm.pokemonlist.ui.views.PokemonListView
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavigation() {

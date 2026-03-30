@@ -21,8 +21,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
+import com.eagm.pokemonlist.core.utils.getImageUrl
 import com.eagm.pokemonlist.data.model.PokemonData
 import com.eagm.pokemonlist.ui.components.ChipComponent
+import com.eagm.pokemonlist.ui.components.PokemonSpriteItem
 import com.eagm.pokemonlist.ui.components.StatItem
 import com.eagm.pokemonlist.ui.state.UiState
 import com.eagm.pokemonlist.ui.viewmodels.PokemonDetailViewModel
@@ -105,47 +109,47 @@ fun PokemonDetailContent(
             )
         }
 
-        Row(horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                AsyncImage(
-                    model = pokemon.sprites.frontDefault,
-                    contentDescription = "Sprite normal",
-                    modifier = Modifier.size(120.dp)
-                )
-                Spacer(modifier = Modifier.size(4.dp))
-                Text("Normal")
-            }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            PokemonSpriteItem(
+                imageModel = pokemon.sprites.frontDefault,
+                label = "Normal"
+            )
 
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                AsyncImage(
-                    model = pokemon.sprites.frontShiny,
-                    contentDescription = "Sprite shiny",
-                    modifier = Modifier.size(120.dp)
-                )
-                Spacer(modifier = Modifier.size(4.dp))
-                Text("Shiny")
-            }
+            Spacer(modifier = Modifier.size(16.dp))
+
+            PokemonSpriteItem(
+                imageModel = pokemon.sprites.frontShiny,
+                label = "Shiny"
+            )
         }
 
-        Text(text = "Tipos",
+        Text(
+            text = "Tipos",
             fontSize = 16.sp,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             pokemon.types.forEach { typeSlot ->
-                ChipComponent(type = typeSlot.type.name,
-                    onClick = onTypeClick)
+                ChipComponent(
+                    type = typeSlot.type.name,
+                    onClick = onTypeClick
+                )
             }
         }
 
         Spacer(modifier = Modifier.size(16.dp))
 
-        Text(text = "Stats",
+        Text(
+            text = "Stats",
             fontSize = 16.sp,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
 
         pokemon.stats.forEach { stat ->
             StatItem(

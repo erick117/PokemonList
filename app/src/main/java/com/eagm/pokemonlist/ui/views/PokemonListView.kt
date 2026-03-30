@@ -27,6 +27,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import com.eagm.pokemonlist.core.utils.getImageUrl
 import com.eagm.pokemonlist.data.model.PokemonInitialData
 import com.eagm.pokemonlist.ui.state.SearchMode
@@ -117,12 +119,27 @@ fun PokemonList(pokemon: PokemonInitialData, onClick: () -> Unit) {
             modifier = Modifier.size(72.dp),
             contentAlignment = Alignment.Center
         ) {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 model = pokemon.getImageUrl(),
-                contentDescription = pokemon.name,
-                modifier = Modifier.size(64.dp),
-                contentScale = ContentScale.Fit
-            )
+                contentDescription = "Sprite",
+                modifier = Modifier.size(120.dp)
+            ) {
+
+                when (painter.state) {
+
+                    is coil.compose.AsyncImagePainter.State.Loading -> {
+                        CircularProgressIndicator()
+                    }
+
+                    is coil.compose.AsyncImagePainter.State.Error -> {
+                        Text("Error")
+                    }
+
+                    else -> {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
+            }
         }
 
         Spacer(modifier = Modifier.width(12.dp))
