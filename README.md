@@ -104,7 +104,7 @@ Decisiones técnicas
 
 Cómo ejecutar
 
-git clone <repo-url>
+git clone https://github.com/erick117/PokemonList.git
 
 Abrir en Android Studio y ejecutar.
 
